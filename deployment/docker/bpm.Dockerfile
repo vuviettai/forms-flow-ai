@@ -8,7 +8,7 @@ WORKDIR /tmp/
 # This allows Docker to cache most of the maven dependencies
 RUN mvn -s /usr/share/maven/ref/settings-docker.xml dependency:resolve-plugins dependency:resolve dependency:go-offline -B
 COPY src /tmp/src/
-RUN mvn -s /usr/share/maven/ref/settings-docker.xml package -P default -Dmaven.test.skip=true
+RUN mvn -s /usr/share/maven/ref/settings-docker.xml package -P default
 
 # Final custom slim java image (for apk command see 17-jdk-alpine-slim)
 FROM openjdk:17-jdk-alpine

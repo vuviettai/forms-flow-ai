@@ -1,0 +1,33 @@
+version: '3.7'
+volumes:
+   keycloak-data:
+services:
+  keycloak-db:
+    image: postgres:14
+    volumes:
+      - keycloak-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${KEYCLOAK_JDBC_DB:-keycloak}
+      POSTGRES_USER: ${KEYCLOAK_JDBC_USER:-admin}
+      POSTGRES_PASSWORD: ${KEYCLOAK_JDBC_PASSWORD:-changeme}
+      PGDATA: /var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:14.0.0
+    volumes:
+      - ./imports:/opt/jboss/keycloak/imports
+    command:
+      - "-b 0.0.0.0 -Dkeycloak.import=/opt/jboss/keycloak/imports/formsflow-ai-realm.json -Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+    environment:
+      - DB_VENDOR=POSTGRES
+      - DB_ADDR=keycloak-db
+      - DB_PORT=5432
+      - DB_DATABASE=${KEYCLOAK_JDBC_DB:-keycloak}
+      - DB_USER=${KEYCLOAK_JDBC_USER-admin}
+      - DB_PASSWORD=${KEYCLOAK_JDBC_PASSWORD:-changeme}
+      - KEYCLOAK_USER=${KEYCLOAK_ADMIN_USER:-admin}
+      - KEYCLOAK_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD:-changeme}
+    ports:
+      - "8080:8080"
+    links:
+      - keycloak-db
