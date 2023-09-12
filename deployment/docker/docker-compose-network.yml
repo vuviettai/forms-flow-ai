@@ -1,0 +1,4 @@
+version: '3.7'
+networks:
+  forms-flow-network:
+    driver: 'bridge'

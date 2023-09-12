@@ -1,6 +1,13 @@
 # Author: Gurumoorthy Mohan
 version: '3.7'
+networks:
+  forms-flow-network:
+    driver: 'bridge'
 
+volumes:
+  mongodb-formio:
+  postgres-formio-camunda:
+  postgres-formio-webapi:
 services:
   forms-flow-forms-db:
     container_name: forms-flow-forms-db
@@ -14,8 +21,10 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${FORMIO_DB_PASSWORD:-changeme}
       MONGO_INITDB_DATABASE: ${FORMIO_DB_NAME:-formio}
     volumes:
-      - ./../../forms-flow-forms/mongo_entrypoint/001_user.js:/docker-entrypoint-initdb.d/001_user.js:ro
-      - ./mongodb/data/db/:/data/db/
+      #- ./../../forms-flow-forms/mongo_entrypoint/001_user.js:/docker-entrypoint-initdb.d/001_user.js:ro
+      #- ./mongodb/data/db/:/data/db/
+      - ./mongodb_init.js:/docker-entrypoint-initdb.d/001_user.js:ro
+      - mongodb-formio:/data/db/
       - ./mongodb/data/log/:/var/log/mongodb/
       - ./mongodb/mongod.conf:/etc/mongod.conf
     networks:
@@ -55,7 +64,8 @@ services:
       POSTGRES_PASSWORD: ${CAMUNDA_JDBC_PASSWORD:-changeme}
       POSTGRES_DB: ${CAMUNDA_JDBC_DB_NAME:-formsflow-bpm}
     volumes:
-      - ./postgres/camunda:/var/lib/postgresql/data
+      #- ./postgres/camunda:/var/lib/postgresql/data
+      - postgres-formio-camunda:/var/lib/postgresql/data
     ports:
       - '5432:5432'
     restart: always
@@ -64,6 +74,7 @@ services:
 
   forms-flow-bpm:
     container_name: forms-flow-bpm
+    platform: linux/x86_64
     build:
       context: ./../../forms-flow-bpm/
       dockerfile: Dockerfile
@@ -189,7 +200,7 @@ services:
       - '6432:5432'
     restart: always
     volumes:
-      - ./postgres/webapi:/var/lib/postgresql/data
+      - postgres-formio-webapi:/var/lib/postgresql/data
     networks:
       - forms-flow-network
 
@@ -239,47 +250,40 @@ services:
     networks:
       - forms-flow-network
 
-  forms-flow-documents-api:
-    container_name: forms-flow-documents-api
-    build:
-      context: ./../../forms-flow-documents/
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - '5006:5006'
-    volumes:
-      - ./:/app:rw
-    environment:
-      DATABASE_URL: ${FORMSFLOW_API_DB_URL:-postgresql://postgres:changeme@forms-flow-webapi-db:5432/webapi}
-      FORMSFLOW_API_CORS_ORIGINS: ${FORMSFLOW_API_CORS_ORIGINS:-*}
-      JWT_OIDC_WELL_KNOWN_CONFIG: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/.well-known/openid-configuration
-      JWT_OIDC_JWKS_URI: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/protocol/openid-connect/certs
-      JWT_OIDC_ISSUER: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}
-      JWT_OIDC_AUDIENCE: ${KEYCLOAK_WEB_CLIENT_ID:-forms-flow-web}
-      JWT_OIDC_CACHING_ENABLED: 'True'
-      KEYCLOAK_URL: ${KEYCLOAK_URL}
-      KEYCLOAK_URL_REALM: ${KEYCLOAK_URL_REALM:-forms-flow-ai}
-      FORMSFLOW_API_URL: ${FORMSFLOW_API_URL}
-      FORMSFLOW_DOC_API_URL: ${DOCUMENT_SERVICE_URL}
-      FORMIO_URL: ${FORMIO_DEFAULT_PROJECT_URL}
-      FORMIO_ROOT_EMAIL: ${FORMIO_ROOT_EMAIL:-admin@example.com}
-      FORMIO_ROOT_PASSWORD: ${FORMIO_ROOT_PASSWORD:-changeme}
-      CHROME_DRIVER_PATH: ${CHROME_DRIVER_PATH}
-      CUSTOM_SUBMISSION_URL: ${CUSTOM_SUBMISSION_URL}
-      CUSTOM_SUBMISSION_ENABLED: ${CUSTOM_SUBMISSION_ENABLED}
-      FORMIO_JWT_SECRET: ${FORMIO_JWT_SECRET:---- change me now ---}
-      MULTI_TENANCY_ENABLED: ${MULTI_TENANCY_ENABLED:-false}
-      KEYCLOAK_ENABLE_CLIENT_AUTH: ${KEYCLOAK_ENABLE_CLIENT_AUTH:-false}
+  # forms-flow-documents-api:
+  #   container_name: forms-flow-documents-api
+  #   build:
+  #     context: ./../../forms-flow-documents/
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   ports:
+  #     - '5006:5006'
+  #   volumes:
+  #     - ./:/app:rw
+  #   environment:
+  #     DATABASE_URL: ${FORMSFLOW_API_DB_URL:-postgresql://postgres:changeme@forms-flow-webapi-db:5432/webapi}
+  #     FORMSFLOW_API_CORS_ORIGINS: ${FORMSFLOW_API_CORS_ORIGINS:-*}
+  #     JWT_OIDC_WELL_KNOWN_CONFIG: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/.well-known/openid-configuration
+  #     JWT_OIDC_JWKS_URI: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/protocol/openid-connect/certs
+  #     JWT_OIDC_ISSUER: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}
+  #     JWT_OIDC_AUDIENCE: ${KEYCLOAK_WEB_CLIENT_ID:-forms-flow-web}
+  #     JWT_OIDC_CACHING_ENABLED: 'True'
+  #     KEYCLOAK_URL: ${KEYCLOAK_URL}
+  #     KEYCLOAK_URL_REALM: ${KEYCLOAK_URL_REALM:-forms-flow-ai}
+  #     FORMSFLOW_API_URL: ${FORMSFLOW_API_URL}
+  #     FORMSFLOW_DOC_API_URL: ${DOCUMENT_SERVICE_URL}
+  #     FORMIO_URL: ${FORMIO_DEFAULT_PROJECT_URL}
+  #     FORMIO_ROOT_EMAIL: ${FORMIO_ROOT_EMAIL:-admin@example.com}
+  #     FORMIO_ROOT_PASSWORD: ${FORMIO_ROOT_PASSWORD:-changeme}
+  #     CHROME_DRIVER_PATH: ${CHROME_DRIVER_PATH}
+  #     CUSTOM_SUBMISSION_URL: ${CUSTOM_SUBMISSION_URL}
+  #     CUSTOM_SUBMISSION_ENABLED: ${CUSTOM_SUBMISSION_ENABLED}
+  #     FORMIO_JWT_SECRET: ${FORMIO_JWT_SECRET:---- change me now ---}
+  #     MULTI_TENANCY_ENABLED: ${MULTI_TENANCY_ENABLED:-false}
+  #     KEYCLOAK_ENABLE_CLIENT_AUTH: ${KEYCLOAK_ENABLE_CLIENT_AUTH:-false}
 
-    stdin_open: true # -i
-    tty: true # -t
-    networks:
-      - forms-flow-network
+  #   stdin_open: true # -i
+  #   tty: true # -t
+  #   networks:
+  #     - forms-flow-network
 
-networks:
-  forms-flow-network:
-    driver: 'bridge'
-
-volumes:
-  mdb-data:
-  postgres:
