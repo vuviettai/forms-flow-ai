@@ -23,7 +23,7 @@ COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-formio.yml"
 COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_BPM}"
 COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web.yml"
 #COMPOSES="-f ${DIR}/docker-compose-keycloak.yml"
-#COMPOSES=" -f ${DIR}/docker-compose.yml"
+#COMPOSES=" -f ${DIR}/docker-compose-arm64.yml"
 
 build() {
     docker-compose ${COMPOSES} --env-file $ENV_FILE build
@@ -36,13 +36,5 @@ up() {
 down() {
     docker-compose ${COMPOSES} down
 }
-# docker-compose ${COMPOSES} \
-#     --env-file $DIR/.env \
-#     --env-file $DIR/.env.keycloak \
-#     up -d 
-# docker-compose \
-#     -f ${DIR}/docker-compose.yml \
-#     --env-file $DIR/.env \
-#     --env-file $DIR/.env.keycloak \
-#     up -d 
+
 $@

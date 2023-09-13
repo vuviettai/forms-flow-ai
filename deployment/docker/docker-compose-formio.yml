@@ -38,9 +38,12 @@ services:
     environment:
       DEBUG: formio:*
       NODE_CONFIG: "{\"mongo\":\"mongodb://${FORMIO_DB_USERNAME:-admin}:${FORMIO_DB_PASSWORD:-changeme}@formiodb:27017/${FORMIO_DB_NAME:-formio}?authMechanism=SCRAM-SHA-1&authSource=admin\"}"
-      #NODE_CONFIG: "{\"mongo\":\"mongodb://mongodb:27017/${FORMIO_DB_NAME:-formio}\"}"
       ROOT_EMAIL: ${FORMIO_ROOT_EMAIL:-admin@example.com}
       ROOT_PASSWORD: ${FORMIO_ROOT_PASSWORD:-changeme}
+      FORMIO_DOMAIN: ${FORMIO_DEFAULT_PROJECT_URL}
+      FORMIO_JWT_SECRET: ${FORMIO_JWT_SECRET:---- change me now ---}
+      NO_INSTALL: ${NO_INSTALL:-1}
+      MULTI_TENANCY_ENABLED: ${MULTI_TENANCY_ENABLED:-false}
     stdin_open: true  # -i
     tty: true         # -t
     networks:
