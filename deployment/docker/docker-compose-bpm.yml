@@ -21,10 +21,9 @@ services:
 
   forms-flow-bpm:
     container_name: forms-flow-bpm
-    platform: linux/arm64/v8
     build:
       context: ./../../forms-flow-bpm/
-      dockerfile: Dockerfile-ARM64
+      dockerfile: Dockerfile
     restart: always
     depends_on :
       - forms-flow-bpm-db
