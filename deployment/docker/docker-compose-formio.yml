@@ -5,7 +5,7 @@ volumes:
 services:
   formiodb:
     image: mongo:5.0
-    container_name: formiodb
+    container_name: smartform-formiodb
     restart: always
     volumes:
       - mongodb-formio:/data/db
@@ -24,7 +24,7 @@ services:
       context: ./
       dockerfile: ./formio.Dockerfile
     image: formio-api  
-    container_name: formio-api
+    container_name: smartform-formio-api
     # The app will restart until Mongo is listening
     restart: always
     working_dir: /formio
