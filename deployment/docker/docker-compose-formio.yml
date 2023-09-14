@@ -9,7 +9,7 @@ services:
     restart: always
     volumes:
       - mongodb-formio:/data/db
-      - ./mongo_init.js:/docker-entrypoint-initdb.d/mongo_init.js:ro
+      - ./mongodb_init.js:/docker-entrypoint-initdb.d/mongodb_init.js:ro
     ports:
       - '27018:27017'         
     environment:
@@ -42,7 +42,7 @@ services:
       ROOT_PASSWORD: ${FORMIO_ROOT_PASSWORD:-changeme}
       FORMIO_DOMAIN: ${FORMIO_DEFAULT_PROJECT_URL}
       FORMIO_JWT_SECRET: ${FORMIO_JWT_SECRET:---- change me now ---}
-      NO_INSTALL: ${NO_INSTALL:-1}
+      #NO_INSTALL: ${NO_INSTALL:-1}
       MULTI_TENANCY_ENABLED: ${MULTI_TENANCY_ENABLED:-false}
     stdin_open: true  # -i
     tty: true         # -t
