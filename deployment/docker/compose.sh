@@ -3,6 +3,9 @@ DIR="$( cd "$( dirname "$0" )" && pwd )"
 ENV_FILE=$DIR/formsflow.env
 OS=$(uname)
 DOCKER_COMPOSE_BPM=${DIR}/docker-compose-bpm.yml
+SMARTFORM_CLIENT=${DIR}/../../../smartform-client
+DOCKER_COMPOSE_CLIENT=${SMARTFORM_CLIENT}/docker-compose.yml
+
 if [ $OS == 'Darwin' ]
 then
     # Form macos
@@ -22,6 +25,8 @@ COMPOSES="-f ${DIR}/docker-compose-network.yml"
 COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-formio.yml"
 COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_BPM}"
 COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web.yml"
+COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-dev.yml"
+#COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_CLIENT}"
 #COMPOSES="-f ${DIR}/docker-compose-keycloak.yml"
 #COMPOSES=" -f ${DIR}/docker-compose-arm64.yml"
 
