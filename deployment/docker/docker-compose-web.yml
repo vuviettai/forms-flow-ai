@@ -8,8 +8,14 @@ services:
     restart: always
     depends_on :
       - forms-flow-webapi
+    # image: node:14.17.6-alpine
+    # platform: linux/arm64
+    # volumes:
+    #   - ./../../forms-flow-web-root-config:/forms-flow-web-root-config
+    # working_dir: /forms-flow-web-root-config
+    # command: "sleep infinity"  
     build:
-      context: ./../../forms-flow-web-root-config/
+      context: ../../forms-flow-web-root-config/
       dockerfile: Dockerfile
       args:
         - MF_FORMSFLOW_WEB_URL=${MF_FORMSFLOW_WEB_URL:-https://forms-flow-microfrontends.aot-technologies.com/forms-flow-web@v5.3.0-alpha/forms-flow-web.gz.js}
@@ -17,6 +23,7 @@ services:
         - MF_FORMSFLOW_SERVICE_URL=${MF_FORMSFLOW_SERVICE_URL:-https://forms-flow-microfrontends.aot-technologies.com/forms-flow-service@v5.3.0-alpha/forms-flow-service.gz.js}
         - MF_FORMSFLOW_ADMIN_URL=${MF_FORMSFLOW_ADMIN_URL:-https://forms-flow-microfrontends.aot-technologies.com/forms-flow-admin@v5.3.0-alpha/forms-flow-admin.gz.js}
         - MF_FORMSFLOW_THEME_URL=${MF_FORMSFLOW_THEME_URL:-https://forms-flow-microfrontends.aot-technologies.com/forms-flow-theme@v5.3.0-alpha/forms-flow-theme.gz.js}
+        - MF_FORMSFLOW_MODELS_URL=${MF_FORMSFLOW_MODELS_URL}
         - NODE_ENV=${NODE_ENV:-production}
     entrypoint: /bin/sh -c "/usr/share/nginx/html/config/env.sh && nginx -g 'daemon off;'"
     environment:

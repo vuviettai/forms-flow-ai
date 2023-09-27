@@ -122,18 +122,21 @@ const PrivateRoute = React.memo((props) => {
       if (kcInstance) {
         authenticate(kcInstance, props.store);
       } else {
+        //https://github.com/vuviettai/smartform-micro-front-ends/blob/main/forms-flow-service/src/keycloak/KeycloakService.ts#L112
         instance.initKeycloak((authenticated) => {
-          if(!authenticated)
-          {
-           toast.error("Unauthorized Access.",{autoClose: 3000}); 
-           setTimeout(function() {
-            instance.userLogout();
-          }, 3000);
-          }
-          else{
-            authenticate(instance, props.store);
-            publish("FF_AUTH", instance);
-          }
+          //toast.success("Authorized Access.",{autoClose: 3000}); 
+          authenticate(instance, props.store);
+          // if(!authenticated)
+          // {
+          //  toast.error("Unauthorized Access.",{autoClose: 3000}); 
+          //  setTimeout(function() {
+          //   instance.userLogout();
+          // }, 3000);
+          // }
+          // else{
+          //   authenticate(instance, props.store);
+          //   publish("FF_AUTH", instance);
+          // }
         });
       }
     }

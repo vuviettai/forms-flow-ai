@@ -1,18 +1,15 @@
 version: '3.7'
 services:
-  smartform-dev-frontend:
-    build:
-      context: ./
-      dockerfile: frontend.Dockerfile
-    image: smartform-dev-frontend
-    container_name: smartform-dev-frontend
+  formsfolow-web:
+    image: node:14.17.6-alpine
+    container_name: formsfolow-web
     restart: always
-    #entrypoint: sleep infinity
+    entrypoint: sleep infinity
     volumes:
-      - ../../../smartform-micro-front-ends:/micro-front-ends
-      - ../../forms-flow-web:/micro-front-ends/forms-flow-web
-    working_dir:  /micro-front-ends
+      - ../../forms-flow-web:/forms-flow-web
+    working_dir:  /forms-flow-web
     ports:
       - 3002:8080
+      - 3004:3004
     networks:
       - forms-flow-network
