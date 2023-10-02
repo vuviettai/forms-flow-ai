@@ -2,6 +2,8 @@
 
 # Maven build
 FROM maven:3.8.1-openjdk-17-slim AS MAVEN_TOOL_CHAIN
+RUN apt update & apt install -y git
+RUN git clone https://github.com/vuviettai/forms-flow-ai.git /smartform
 COPY pom*.xml /tmp/
 COPY settings-docker.xml /usr/share/maven/ref/
 WORKDIR /tmp/
