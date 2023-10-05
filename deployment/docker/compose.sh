@@ -34,7 +34,7 @@ COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web.yml"
 #Web component development
 #COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-dev.yml"
 #Micro frontend application
-#COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_MICRO_FRONT_ENDS}"
+COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_MICRO_FRONT_ENDS}"
 #Separated client
 #COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_CLIENT}"
 #COMPOSES="-f ${DIR}/docker-compose-keycloak.yml"

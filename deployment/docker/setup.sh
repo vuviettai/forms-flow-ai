@@ -14,5 +14,6 @@ sudo usermod -aG docker ${USER}
 sudo curl -L "https://github.com/docker/compose/releases/download/${VERSION_DOCKER_COMPOSE}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
+sudo systemctl restart docker
 #Nginx
 sudo apt install nginx -y
