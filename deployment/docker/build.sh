@@ -18,13 +18,13 @@ rootconfig() {
 
 client() {
     docker build --file ${SCRIPT_DIR}/smartformclient.Dockerfile --no-cache --output "type=local,dest=../dist" ${SCRIPT_DIR}
-    scp ${SCRIPT_DIR}/../dist/smartform-client.tar.gz ${AUTH}:/tmp/client.tar.gz
 	echo "Finished build in $(date)"
-    DEST=/usr/share/nginx/html/client
-  	ssh -t ${AUTH} "sudo rm -rf $DEST"
-  	ssh -t ${AUTH} "sudo mkdir -p $DEST"
-  	ssh -t ${AUTH} "sudo tar -xvf /tmp/smartform-client.tar.gz -C $DEST"
-  	echo "Finished deployment in $(date)"
+	# scp ${SCRIPT_DIR}/../dist/smartform-client.tar.gz ${AUTH}:/tmp/client.tar.gz
+    # DEST=/usr/share/nginx/html/client
+  	# ssh -t ${AUTH} "sudo rm -rf $DEST"
+  	# ssh -t ${AUTH} "sudo mkdir -p $DEST"
+  	# ssh -t ${AUTH} "sudo tar -xvf /tmp/smartform-client.tar.gz -C $DEST"
+  	# echo "Finished deployment in $(date)"
 }
 
 $@

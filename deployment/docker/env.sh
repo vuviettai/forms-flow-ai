@@ -1,7 +1,7 @@
 #!/bin/bash
-
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 # Recreate config file
-rm -rf ./config.js
-touch ./config.js
+rm -rf ${SCRIPT_DIR}/config.js
+touch ${SCRIPT_DIR}/config.js
 
-envsubst < ./config.template.js > ./config.js;
+envsubst < ${SCRIPT_DIR}/config.template.js > ${SCRIPT_DIR}/config.js;
