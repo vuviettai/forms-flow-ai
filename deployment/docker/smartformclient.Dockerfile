@@ -6,7 +6,7 @@ RUN apk update && apk upgrade && apk add --no-cache git
 RUN git clone https://github.com/vuviettai/smartform-client.git /smartform-client
 # Set working directory
 WORKDIR /smartform-client
-COPY smartformclient.env /smartform-client/.env
+COPY .env.smartformclient /smartform-client/.env
 COPY env.sh /smartform-client/public/config/env.sh
 RUN chmod +x /smartform-client/public/config/env.sh
 ENV NODE_OPTIONS --max-old-space-size=8192
