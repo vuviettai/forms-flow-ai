@@ -6,8 +6,8 @@ DOCKER_COMPOSE_BPM=${DIR}/docker-compose-bpm.yml
 SMARTFORM_CLIENT=${DIR}/../../../smartform-client
 DOCKER_COMPOSE_CLIENT=${SMARTFORM_CLIENT}/docker-compose.yml
 
-export MICRO_FRONT_ENDS=${DIR}/../../../smartform-micro-front-ends
-DOCKER_COMPOSE_MICRO_FRONT_ENDS=${MICRO_FRONT_ENDS}/docker-compose.yml
+#export MICRO_FRONT_ENDS=${DIR}/../../../smartform-micro-front-ends
+#DOCKER_COMPOSE_MICRO_FRONT_ENDS=${MICRO_FRONT_ENDS}/docker-compose.yml
 
 if [ $OS == 'Darwin' ]
 then
@@ -34,7 +34,7 @@ COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web.yml"
 #Web component development
 #COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-dev.yml"
 #Micro frontend application
-COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_MICRO_FRONT_ENDS}"
+#COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_MICRO_FRONT_ENDS}"
 #Separated client
 #COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_CLIENT}"
 #COMPOSES="-f ${DIR}/docker-compose-keycloak.yml"
