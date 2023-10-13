@@ -17,7 +17,7 @@ RUN tar -xvf /tmp/smartform-client.tar.gz -C /usr/share/nginx/html/client
 COPY docker/env.sh /usr/share/nginx/html/root/config
 COPY docker/env.sh /usr/share/nginx/html/client/config
 # Copy nginx configuration
-COPY docker/nginx.conf /etc/nginx/nginx.conf
+# COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 # Expose port
 EXPOSE 8080

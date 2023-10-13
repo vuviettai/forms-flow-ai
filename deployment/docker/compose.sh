@@ -1,6 +1,7 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "$0" )" && pwd )"
-ENV_FILE=$DIR/.env.formsflow
+ENV=${1:-formsflow}
+ENV_FILE=$DIR/.env.${ENV}
 OS=$(uname)
 DOCKER_COMPOSE_BPM=${DIR}/docker-compose-bpm.yml
 SMARTFORM_CLIENT=${DIR}/../../../smartform-client
