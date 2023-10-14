@@ -1,6 +1,6 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "$0" )" && pwd )"
-ENV=${1:-formsflow}
+ENV=${2:-formsflow}
 ENV_FILE=$DIR/.env.${ENV}
 OS=$(uname)
 DOCKER_COMPOSE_BPM=${DIR}/docker-compose-bpm.yml
