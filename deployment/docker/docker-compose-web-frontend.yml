@@ -1,7 +1,7 @@
 version: '3.7'
 services:
-  forms-flow-nginx:
-    container_name: forms-flow-nginx
+  smartform-frontend:
+    container_name: smartform-frontend
     restart: always
     build:
       context: ../
