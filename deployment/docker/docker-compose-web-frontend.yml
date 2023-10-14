@@ -7,8 +7,6 @@ services:
       context: ../
       dockerfile: docker/nginx.Dockerfile
     #entrypoint: "nginx -g 'daemon off;'"
-    volumes:
-      - ./vgec.smartform.tech.conf:/etc/nginx/site-enabled/vgec.smartform.tech.conf
     environment:
       - NODE_ENV=${NODE_ENV:-production}
       - REACT_APP_API_SERVER_URL=${FORMIO_DEFAULT_PROJECT_URL}
@@ -44,4 +42,4 @@ services:
       - REACT_APP_DATE_FORMAT=${DATE_FORMAT:-DD-MM-YY}
       - REACT_APP_TIME_FORMAT=${TIME_FORMAT:-hh:mm:ss}
     ports:
-      - 80:8080
+      - 3000:8080
