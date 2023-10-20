@@ -29,4 +29,4 @@ RUN chmod +x /usr/share/nginx/html/root/config/env.sh
 RUN chmod +x /usr/share/nginx/html/client/config/env.sh
 # Start Nginx server with environment setup
 #CMD ["/bin/bash", "-c", "nginx -g \"daemon off;\""]
-CMD ["/bin/bash", "-c", "/usr/share/nginx/html/config/env.sh && /usr/share/nginx/html/client/config/env.sh && nginx -g 'daemon off;'"]
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/root/config/env.sh && /usr/share/nginx/html/client/config/env.sh && nginx -g 'daemon off;'"]

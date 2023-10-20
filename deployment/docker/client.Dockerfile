@@ -8,7 +8,7 @@ RUN git clone https://github.com/vuviettai/smartform-client.git /smartform-clien
 ARG ENV
 # Set working directory
 WORKDIR /smartform-client
-COPY .env.${ENV} /smartform-client/.env
+COPY ./development/docker/.env.${ENV} /smartform-client/.env
 ENV NODE_OPTIONS --max-old-space-size=8192
 
 RUN npm install
