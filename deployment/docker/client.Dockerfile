@@ -9,8 +9,6 @@ ARG ENV
 # Set working directory
 WORKDIR /smartform-client
 COPY .env.${ENV} /smartform-client/.env
-COPY env.sh /smartform-client/public/config/env.sh
-RUN chmod +x /smartform-client/public/config/env.sh
 ENV NODE_OPTIONS --max-old-space-size=8192
 
 RUN npm install
