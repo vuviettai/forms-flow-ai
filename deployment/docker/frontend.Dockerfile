@@ -2,9 +2,10 @@
 FROM node:14.17.6-alpine as build-stage
 
 # Install necessary packages
-RUN apk update && apk upgrade && apk add --no-cache curl git
+RUN apk update && apk upgrade && apk add --no-cache curl git tar
 
-RUN git clone https://github.com/vuviettai/forms-flow-ai.git /smartform
+# RUN git clone https://github.com/vuviettai/forms-flow-ai.git /smartform
+COPY ./forms-flow-web-root-config /smartform/forms-flow-web-root-config
 # Set working directory
 WORKDIR /smartform/forms-flow-web-root-config
 
@@ -15,6 +16,7 @@ ARG MF_FORMSFLOW_NAV_URL
 ARG MF_FORMSFLOW_SERVICE_URL
 ARG MF_FORMSFLOW_ADMIN_URL
 ARG MF_FORMSFLOW_THEME_URL
+ARG MF_FORMSFLOW_CLIENT_URL
 
 # Set environment variables
 ENV MF_FORMSFLOW_WEB_URL ${MF_FORMSFLOW_WEB_URL}
@@ -22,6 +24,7 @@ ENV MF_FORMSFLOW_NAV_URL ${MF_FORMSFLOW_NAV_URL}
 ENV MF_FORMSFLOW_SERVICE_URL ${MF_FORMSFLOW_SERVICE_URL}
 ENV MF_FORMSFLOW_ADMIN_URL ${MF_FORMSFLOW_ADMIN_URL}
 ENV MF_FORMSFLOW_THEME_URL ${MF_FORMSFLOW_THEME_URL}
+ENV MF_FORMSFLOW_CLIENT_URL ${MF_FORMSFLOW_CLIENT_URL}
 ENV NODE_ENV ${NODE_ENV:-production}
 
 #ENV MF_FORMSFLOW_WEB_URL ${MF_FORMSFLOW_WEB_URL:-https://forms-flow-microfrontends.aot-technologies.com/forms-flow-web@v5.3.0-alpha/forms-flow-web.gz.js}
@@ -35,6 +38,7 @@ ENV MF_FORMSFLOW_NAV_URL ${MF_FORMSFLOW_NAV_URL:-/forms-flow-nav.js}
 ENV MF_FORMSFLOW_SERVICE_URL ${MF_FORMSFLOW_SERVICE_URL:-/forms-flow-service.gz.js}
 ENV MF_FORMSFLOW_ADMIN_URL ${MF_FORMSFLOW_ADMIN_URL:-/forms-flow-admin.js}
 ENV MF_FORMSFLOW_THEME_URL ${MF_FORMSFLOW_THEME_URL:-/forms-flow-theme.gz.js}
+ENV MF_FORMSFLOW_CLIENT_URL ${MF_FORMSFLOW_CLIENT_URL:-/client/smartform-client.js}
 
 # Add `/app/node_modules/.bin` to $PATH
 ENV PATH /smartform/forms-flow-web-root-config/node_modules/.bin:$PATH
@@ -54,13 +58,15 @@ WORKDIR /smartform/forms-flow-web-root-config/dist
 #RUN curl -L "https://forms-flow-microfrontends.aot-technologies.com/forms-flow-web@v5.3.0-alpha/forms-flow-admin.gz.js" -o forms-flow-admin.gz.js
 #RUN curl -L "https://forms-flow-microfrontends.aot-technologies.com/forms-flow-web@v5.3.0-alpha/forms-flow-theme.gz.js" -o forms-flow-theme.gz.js
 #ADD env.sh config/env.sh
-ADD microfrontends/forms-flow-web.js forms-flow-web.js
-ADD microfrontends/forms-flow-nav.js forms-flow-nav.js
-ADD microfrontends/forms-flow-service.gz.js forms-flow-service.gz.js
-ADD microfrontends/forms-flow-admin.js forms-flow-admin.js
-ADD microfrontends/forms-flow-theme.gz.js forms-flow-theme.gz.js
+ADD ./deployment/docker/microfrontends/forms-flow-web.js forms-flow-web.js
+ADD ./deployment/docker/microfrontends/forms-flow-nav.js forms-flow-nav.js
+ADD ./deployment/docker/microfrontends/forms-flow-service.gz.js forms-flow-service.gz.js
+ADD ./deployment/docker/microfrontends/forms-flow-admin.js forms-flow-admin.js
+ADD ./deployment/docker/microfrontends/forms-flow-theme.gz.js forms-flow-theme.gz.js
+#Andd and Unpack 
+ADD ./deployment/docker/microfrontends/client-spa.tar.gz /smartform/forms-flow-web-root-config/dist/client 
+#RUN tar -xvf /tmp/client-spa.tar.gz -C /tmp
 RUN tar -zcvf /tmp/root-config.tar.gz .
-
 
 FROM scratch AS export-stage
 COPY --from=build-stage /tmp/root-config.tar.gz .
