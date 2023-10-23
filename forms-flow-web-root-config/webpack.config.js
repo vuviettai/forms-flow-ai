@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const DefinePlugin = require("webpack/lib/DefinePlugin");
 require("dotenv").config({ path: "./.env" });
-
+const ROOT_PATH = process.env.ROOT_PATH || '/';
 module.exports = (webpackConfigEnv, argv) => {
   const orgName = "formsflow";
   const defaultConfig = singleSpaDefaults({
@@ -17,6 +17,9 @@ module.exports = (webpackConfigEnv, argv) => {
 
   return merge(defaultConfig, {
     // modify the webpack config however you'd like to by adding to this object
+    output: {
+      publicPath: ROOT_PATH,
+    },
     plugins: [
       new HtmlWebpackPlugin({
         inject: false,

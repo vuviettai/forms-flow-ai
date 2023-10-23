@@ -18,7 +18,26 @@ services:
       MONGO_INITDB_DATABASE: ${FORMIO_DB_NAME:-formio}
     networks:
       - forms-flow-network
-      
+
+  # mongo-express:
+  #   image: mongo-express
+  #   container_name: vgec-mgadmin
+  #   environment:
+  #     ME_CONFIG_MONGODB_SERVER: formiodb
+  #     ME_CONFIG_MONGODB_PORT: 27017
+  #     ME_CONFIG_MONGODB_ENABLE_ADMIN: false
+  #     ME_CONFIG_MONGODB_AUTH_DATABASE: ${FORMIO_DB_NAME:-formio?authMechanism=SCRAM-SHA-1&authSource=admin}
+  #     ME_CONFIG_MONGODB_AUTH_USERNAME: ${FORMIO_DB_USERNAME:-admin}
+  #     ME_CONFIG_MONGODB_AUTH_PASSWORD: ${FORMIO_DB_PASSWORD:-changeme}
+  #     ME_CONFIG_BASICAUTH_USERNAME: ${MONGOEXPRESS_LOGIN}
+  #     ME_CONFIG_BASICAUTH_PASSWORD: ${MONGOEXPRESS_PASSWORD}
+  #   depends_on:
+  #     - formiodb
+  #   networks:
+  #     - forms-flow-network  
+  #   ports:
+  #     - "3002:8081"    
+
   formio-api:
     build:
       context: ./

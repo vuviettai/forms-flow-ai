@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Smartform</title>
-  <script src="/config/config.js"></script>
+  <script src="<%= process.env.ROOT_PATH %>/config/config.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js-properties-panel@1.3.0/dist/assets/element-templates.css">
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js-properties-panel@1.3.0/dist/assets/properties-panel.css">
   <!-- required dmn modeler styles -->
@@ -67,7 +67,7 @@
      <script type="systemjs-importmap">
         {
           "imports": {
-              "@formsflow/root-config": "/formsflow-root-config.js",
+              "@formsflow/root-config": "<%= process.env.ROOT_PATH %>/formsflow-root-config.js",
               "@formsflow/nav": "<%= process.env.MF_FORMSFLOW_NAV_URL %>",
               "@formsflow/formsflow-web": "<%= process.env.MF_FORMSFLOW_WEB_URL %>",
               "@formsflow/admin":"<%=process.env.MF_FORMSFLOW_ADMIN_URL %>",

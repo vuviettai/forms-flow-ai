@@ -1,6 +1,7 @@
 window["_env_"] = {
   // To define project level configuration  possible values development, test, production
   NODE_ENV: "development",
+  ROOT_PATH: "",
   // Environment Variables for forms-flow-web
 
   /* URL of forms-flow-forms

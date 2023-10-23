@@ -1,7 +1,8 @@
 export async function register(config) {
   // Check if service workers are supported by the browser
   if ('serviceWorker' in navigator) {
-    const swUrl = '/worker.js'
+    const ROOT_PATH = window._env_?.ROOT_PATH || '';
+    const swUrl = `${ROOT_PATH}/worker.js`
     try {
       const registration = await navigator.serviceWorker.register(swUrl);
 

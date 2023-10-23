@@ -5,7 +5,7 @@ volumes:
 
 services:
   pgadmin:
-    container_name: pgadmin
+    container_name: vgec-pgadmin
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
@@ -15,7 +15,7 @@ services:
        - pgadmin:/var/lib/pgadmin
     ports:
       - "5080:80"
-      - "5433:433"
+      - "5033:433"
     restart: unless-stopped
     networks:
       - forms-flow-network
