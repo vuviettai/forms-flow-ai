@@ -14,8 +14,8 @@ services:
     volumes:
        - pgadmin:/var/lib/pgadmin
     ports:
-      - 5080:80"
-      - 5433:433"
+      - "5080:80"
+      - "5433:433"
     restart: unless-stopped
     networks:
       - forms-flow-network
