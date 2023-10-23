@@ -1,0 +1,25 @@
+version: '3.7'
+
+volumes:
+    pgadmin:
+
+services:
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+       - pgadmin:/var/lib/pgadmin
+    ports:
+      - 5080:80"
+      - 5433:433"
+    restart: unless-stopped
+    networks:
+      - forms-flow-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+

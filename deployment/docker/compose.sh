@@ -26,6 +26,7 @@ then
     sed -i "s|HOST_IP=.*|HOST_IP=$HOST_IP|g" $ENV_FILE
 fi 
 COMPOSES="-f ${DIR}/docker-compose-network.yml"
+COMPOSES="-f ${DIR}/docker-compose-pgadmin.yml"
 #Formio backend + mongodb
 COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-formio.yml"
 #Postgres + Bpm java backend (Camunda server)
@@ -36,12 +37,6 @@ COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web-backend.yml"
 COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web-frontend.yml"
 #Main components from formsflow ai (Postgres 11, python backend + frontend for designer)
 #COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web.yml"
-#Web component development
-#COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-dev.yml"
-#Micro frontend application
-#COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_MICRO_FRONT_ENDS}"
-#Separated client
-#COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_CLIENT}"
 
 build() {
     docker-compose ${COMPOSES} --env-file $ENV_FILE build
