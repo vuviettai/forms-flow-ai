@@ -26,7 +26,7 @@ then
     sed -i "s|HOST_IP=.*|HOST_IP=$HOST_IP|g" $ENV_FILE
 fi 
 COMPOSES="-f ${DIR}/docker-compose-network.yml"
-COMPOSES="-f ${DIR}/docker-compose-pgadmin.yml"
+COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-pgadmin.yml"
 #Formio backend + mongodb
 COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-formio.yml"
 #Postgres + Bpm java backend (Camunda server)
