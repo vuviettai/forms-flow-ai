@@ -34,7 +34,7 @@ COMPOSES="${COMPOSES} -f ${DOCKER_COMPOSE_BPM}"
 
 #Main components from formsflow ai (Postgres 11, python backend)
 COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web-backend.yml"
-COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web-frontend.yml"
+#COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web-frontend.yml"
 #Main components from formsflow ai (Postgres 11, python backend + frontend for designer)
 #COMPOSES="${COMPOSES} -f ${DIR}/docker-compose-web.yml"
 
