@@ -60,7 +60,7 @@ services:
       ROOT_EMAIL: ${FORMIO_ROOT_EMAIL:-admin@example.com}
       ROOT_PASSWORD: ${FORMIO_ROOT_PASSWORD:-changeme}
       FORMIO_DOMAIN: ${FORMIO_DEFAULT_PROJECT_URL}
-      FORMIO_JWT_SECRET: ${FORMIO_JWT_SECRET:---- change me now ---}
+      FORMIO_JWT_SECRET: ${FORMIO_JWT_SECRET}
       #NO_INSTALL: ${NO_INSTALL:-1}
       MULTI_TENANCY_ENABLED: ${MULTI_TENANCY_ENABLED:-false}
     stdin_open: true # -i
