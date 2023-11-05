@@ -216,7 +216,8 @@ class FormResourceList(Resource):
             limit: int = dict_data.get("limit")
             sort_by: str = dict_data.get("sort_by", "id")
             sort_order: str = dict_data.get("sort_order", "desc")
-            form_type: str = dict_data.get("form_type", "form")
+            #form_type: str = dict_data.get("form_type", "form")
+            form_type: str = dict_data.get("form_type")
             is_active = dict_data.get("is_active", None)
 
             if form_name:
