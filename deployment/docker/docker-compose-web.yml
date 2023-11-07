@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 volumes:
   postgres-formio-webapi:
 
@@ -6,14 +6,14 @@ services:
   forms-flow-web-root-config:
     container_name: forms-flow-web-root-config
     restart: always
-    depends_on :
+    depends_on:
       - forms-flow-webapi
     # image: node:14.17.6-alpine
     # platform: linux/arm64
     # volumes:
     #   - ./../../forms-flow-web-root-config:/forms-flow-web-root-config
     # working_dir: /forms-flow-web-root-config
-    # command: "sleep infinity"  
+    # command: "sleep infinity"
     build:
       context: ../../forms-flow-web-root-config/
       dockerfile: Dockerfile
@@ -60,7 +60,7 @@ services:
       - REACT_APP_DATE_FORMAT=${DATE_FORMAT:-DD-MM-YY}
       - REACT_APP_TIME_FORMAT=${TIME_FORMAT:-hh:mm:ss}
     ports:
-      - '3000:8080'
+      - "3000:8080"
     tty: true
 
     networks:
@@ -74,7 +74,7 @@ services:
       POSTGRES_PASSWORD: ${FORMSFLOW_API_DB_PASSWORD:-changeme}
       POSTGRES_DB: ${FORMSFLOW_API_DB_NAME:-webapi}
     ports:
-      - '6432:5432'
+      - "6432:5432"
     restart: always
     volumes:
       - postgres-formio-webapi:/var/lib/postgresql/data
@@ -87,12 +87,12 @@ services:
       context: ./../../forms-flow-api/
       dockerfile: Dockerfile
     restart: always
-    depends_on :
+    depends_on:
       - forms-flow-webapi-db
       - formio-api
     entrypoint: "/wait-for-service.sh forms-flow-webapi-db:5432 -s -- ./entrypoint.sh"
     ports:
-      - '5000:5000'
+      - "5000:5000"
     volumes:
       - ./:/app:rw
     environment:
@@ -105,11 +105,11 @@ services:
       BPM_API_URL: ${BPM_API_URL}
       FORMSFLOW_API_CORS_ORIGINS: ${FORMSFLOW_API_CORS_ORIGINS:-*}
       JWT_OIDC_WELL_KNOWN_CONFIG: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/.well-known/openid-configuration
-      JWT_OIDC_ALGORITHMS: 'RS256'
+      JWT_OIDC_ALGORITHMS: "RS256"
       JWT_OIDC_JWKS_URI: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/protocol/openid-connect/certs
       JWT_OIDC_ISSUER: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}
       JWT_OIDC_AUDIENCE: ${KEYCLOAK_WEB_CLIENT_ID:-forms-flow-web}
-      JWT_OIDC_CACHING_ENABLED: 'True'
+      JWT_OIDC_CACHING_ENABLED: "True"
       JWT_OIDC_JWKS_CACHE_TIMEOUT: 300
       KEYCLOAK_URL: ${KEYCLOAK_URL}
       KEYCLOAK_URL_REALM: ${KEYCLOAK_URL_REALM:-forms-flow-ai}
@@ -126,4 +126,3 @@ services:
     tty: true # -t
     networks:
       - forms-flow-network
-
