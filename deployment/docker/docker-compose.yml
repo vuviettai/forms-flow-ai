@@ -1,4 +1,5 @@
 # Author: Gurumoorthy Mohan
+<<<<<<< HEAD
 version: "3.7"
 
 services:
@@ -249,7 +250,11 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
+<<<<<<< HEAD
       - "5006:5006"
+=======
+      - '5006:5006'
+>>>>>>> 865af253 (Runnable on Macos M1)
     volumes:
       - ./:/app:rw
     environment:
@@ -259,7 +264,11 @@ services:
       JWT_OIDC_JWKS_URI: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/protocol/openid-connect/certs
       JWT_OIDC_ISSUER: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}
       JWT_OIDC_AUDIENCE: ${KEYCLOAK_WEB_CLIENT_ID:-forms-flow-web}
+<<<<<<< HEAD
       JWT_OIDC_CACHING_ENABLED: "True"
+=======
+      JWT_OIDC_CACHING_ENABLED: 'True'
+>>>>>>> 865af253 (Runnable on Macos M1)
       KEYCLOAK_URL: ${KEYCLOAK_URL}
       KEYCLOAK_URL_REALM: ${KEYCLOAK_URL_REALM:-forms-flow-ai}
       FORMSFLOW_API_URL: ${FORMSFLOW_API_URL}
@@ -273,6 +282,7 @@ services:
       FORMIO_JWT_SECRET: ${FORMIO_JWT_SECRET:---- change me now ---}
       MULTI_TENANCY_ENABLED: ${MULTI_TENANCY_ENABLED:-false}
       KEYCLOAK_ENABLE_CLIENT_AUTH: ${KEYCLOAK_ENABLE_CLIENT_AUTH:-false}
+<<<<<<< HEAD
       API_LOG_ROTATION_WHEN: ${API_LOG_ROTATION_WHEN:-d}
       API_LOG_ROTATION_INTERVAL: ${API_LOG_ROTATION_INTERVAL:-1}
       API_LOG_BACKUP_COUNT: ${API_LOG_BACKUP_COUNT:-7}
