@@ -302,8 +302,7 @@ export const formio_resourceBundles = {
     "All Users": "All Users",
     "Specific User Group": "Specific User Group",
     "Applicable for Designer Roled Users only.": "Applicable for Designer Roled Users only.",
-    "Applicable for Client and Reviewer Roled Users only.": "Applicable for Client and Reviewer Roled Users only.",
-    "Rules deployed successfully": "Rules deployed successfully"
+    "Applicable for Client and Reviewer Roled Users only.": "Applicable for Client and Reviewer Roled Users only."
   
   },
 
